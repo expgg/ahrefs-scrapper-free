@@ -16,8 +16,16 @@
  * =========================================================================
  */
 
+function doGet(e) {
+  return ContentService.createTextOutput(JSON.stringify({
+    status: "online",
+    message: "Ahrefs Auto Scraper Google Sheets Webhook is active and listening!"
+  })).setMimeType(ContentService.MimeType.JSON);
+}
+
 function doPost(e) {
   try {
+
     const data = JSON.parse(e.postData.contents);
     const action = data.action || "sync";
     const topic = data.topic ? data.topic.trim() : "Keywords";

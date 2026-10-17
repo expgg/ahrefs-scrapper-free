@@ -770,13 +770,47 @@ def sync_to_google_sheet(sheet_url: str, rows: list, topic: str = "Keywords", sh
             timeout=15
         )
         if resp.status_code == 200:
-            res_data = resp.json()
-            new_id = res_data.get("sheet_id", sheet_id)
-            new_url = res_data.get("sheet_url", "")
-            return new_id, new_url
+            try:
+                res_data = resp.json()
+                new_id = res_data.get("sheet_id", sheet_id)
+                new_url = res_data.get("sheet_url", "")
+                return new_id, new_url
+            except Exception:
+                pass
+        elif resp.status_code == 403:
+            if HAS_RICH:
+                console.print("[bold red]  [!] Google Sheets 403 Forbidden:[/bold red] [yellow]In Apps Script, set 'Who has access' to 'Anyone'![/yellow]")
+            else:
+                print("  [!] Google Sheets 403 Forbidden: In Apps Script, set 'Who has access' to 'Anyone'!")
+        else:
+            if HAS_RICH:
+                console.print(f"[bold red]  [!] Google Sheets Sync Notice:[/bold red] [dim]HTTP {resp.status_code}[/dim]")
+            else:
+                print(f"  [!] Google Sheets Sync Notice: HTTP {resp.status_code}")
     except Exception:
         pass
     return sheet_id, ""
+
+
+def check_webhook_status(sheet_url: str):
+    if not sheet_url:
+        return
+    try:
+        r = requests.get(sheet_url, timeout=5)
+        if r.status_code == 403:
+            if HAS_RICH:
+                console.print("[bold red]  [!] Google Sheets Warning (403 Forbidden):[/bold red]")
+                console.print("[yellow]      Your Google Apps Script deployment has 'Who has access' set to 'Only myself'.[/yellow]")
+                console.print("[white]      Fix: In Apps Script, click [bold cyan]Deploy ➔ Manage deployments ➔ Edit ➔ Who has access: Anyone[/bold cyan].[/white]\n")
+            else:
+                print("  [!] Google Sheets Warning (403 Forbidden): Set 'Who has access' to 'Anyone' in Apps Script.\n")
+        elif r.status_code == 200:
+            if HAS_RICH:
+                console.print("  [bold green][✓][/bold green] [dim]Google Sheets Webhook verified & ready.[/dim]\n")
+            else:
+                print("  [✓] Google Sheets Webhook verified & ready.\n")
+    except Exception:
+        pass
 
 
 
@@ -920,6 +954,7 @@ def run_harvester(
 
     enrich_display = "ALL Harvested Keywords" if enrich_kd_count == -1 else (f"Top {enrich_kd_count} Winners" if enrich_kd_count > 0 else "None (Skipped)")
     print_config_panel(seed_keywords, quota, country, enrich_display, sheet_url, output_path)
+    check_webhook_status(sheet_url)
 
     seed_manager = SeedManager(seed_keywords)
     harvested_keywords = []
