@@ -1,5 +1,7 @@
 <div align="center">
 
+<img src="docs/images/banner.png" alt="Ahrefs Auto Scraper Banner" width="100%" />
+
 # ⚡ Ahrefs Auto Scraper v3.5
 ### *Autonomous Keyword Harvester & SEO Intelligence Engine*
 
