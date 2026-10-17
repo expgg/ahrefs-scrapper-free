@@ -14,6 +14,7 @@ cf_session_token.json
 
 # Local user configuration (Webhook URL)
 sheet_config.json
+config/sheet_config.json
 !config/sheet_config.example.json
 
 # Harvested CSV files (Keep only sample exports in samples/)

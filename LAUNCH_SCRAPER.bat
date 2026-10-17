@@ -26,9 +26,13 @@ if errorlevel 1 (
 python -c "import seleniumbase, pandas, requests, rich" >nul 2>&1
 if errorlevel 1 (
     echo [*] Required Python packages not found. Auto-installing now...
-    python -m pip install -r requirements.txt
+    if exist config\requirements.txt (
+        python -m pip install -r config\requirements.txt
+    ) else (
+        python -m pip install -r requirements.txt
+    )
     if errorlevel 1 (
-        echo [ERROR] Failed to install dependencies. Please run INSTALL_DEPENDENCIES.bat manually.
+        echo [ERROR] Failed to install dependencies. Please run scripts\INSTALL_DEPENDENCIES.bat manually.
         pause
         exit /b 1
     )
@@ -37,7 +41,7 @@ if errorlevel 1 (
 )
 
 :: 3. Launch the engine (passes any optional command-line arguments)
-python keyword_automator.py %*
+python main.py %*
 
 if errorlevel 1 (
     echo.

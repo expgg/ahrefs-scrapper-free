@@ -34,7 +34,7 @@ Transform your keyword research into automated, dedicated **SEO Intelligence Das
 ---
 
 ### Step 3: Configure Your Local Webhook
-Save your Web App URL into `sheet_config.json` in the project root:
+Save your Web App URL into `config/sheet_config.json`:
 
 ```json
 {
@@ -42,7 +42,7 @@ Save your Web App URL into `sheet_config.json` in the project root:
 }
 ```
 
-*(You can also use `config/sheet_config.example.json` as a starting template).*
+*(You can copy `config/sheet_config.example.json` to get started).*
 
 ---
 
@@ -50,11 +50,11 @@ Save your Web App URL into `sheet_config.json` in the project root:
 Run the engine via the 1-click batch launcher or terminal:
 
 ```powershell
-# Interactive mode (will auto-detect your saved sheet_config.json):
-python keyword_automator.py
+# Interactive mode (will auto-detect your saved config/sheet_config.json):
+python main.py
 
 # Or pass directly via CLI flag:
-python keyword_automator.py --seed "wireless headphones" --quota 50 --country "United Kingdom" --enrich-kd 10
+python main.py --seed "wireless headphones" --quota 50 --country "United Kingdom" --enrich-kd 10
 ```
 
 The script will automatically create the sheet, stream rows live, and display the direct link upon completion!

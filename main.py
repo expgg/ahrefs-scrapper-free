@@ -1212,26 +1212,31 @@ def run_harvester(
 
 
 def load_saved_sheet_url():
-    config_file = "sheet_config.json"
-    if os.path.exists(config_file):
-        try:
-            import json
-            with open(config_file, "r", encoding="utf-8") as f:
-                data = json.load(f)
-                return data.get("sheet_url", "").strip()
-        except Exception:
-            pass
+    for config_file in ["config/sheet_config.json", "sheet_config.json"]:
+        if os.path.exists(config_file):
+            try:
+                import json
+                with open(config_file, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                    val = data.get("sheet_url", "").strip()
+                    if val:
+                        return val
+            except Exception:
+                pass
     return ""
 
 
 def save_sheet_url(url: str):
-    config_file = "sheet_config.json"
+    config_dir = "config"
+    os.makedirs(config_dir, exist_ok=True)
+    config_file = os.path.join(config_dir, "sheet_config.json")
     try:
         import json
         with open(config_file, "w", encoding="utf-8") as f:
             json.dump({"sheet_url": url.strip()}, f, indent=2)
     except Exception:
         pass
+
 
 
 def main():

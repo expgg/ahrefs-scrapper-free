@@ -35,10 +35,8 @@
 ## ⚡ Quick Start
 
 ### Option A: 1-Click Launch (Windows)
-1. **First-time setup:** Double-click [`INSTALL_DEPENDENCIES.bat`](INSTALL_DEPENDENCIES.bat) to install requirements.
-2. **Launch:** Double-click [`LAUNCH_SCRAPER.bat`](LAUNCH_SCRAPER.bat) to run the interactive scraper.
-
-*(The launcher auto-verifies dependencies on every launch and installs any missing packages automatically).*
+1. **Launch Directly:** Double-click [`LAUNCH_SCRAPER.bat`](LAUNCH_SCRAPER.bat). It auto-checks dependencies and starts the tool!
+2. *(Optional)* Run [`scripts/INSTALL_DEPENDENCIES.bat`](scripts/INSTALL_DEPENDENCIES.bat) if you want to manually pre-install or update packages.
 
 ### Option B: Terminal (CLI)
 ```bash
@@ -47,19 +45,19 @@ git clone https://github.com/expgg/ahrefs-scrapper-free.git
 cd ahrefs-scrapper-free
 
 # 2. Install dependencies
-pip install -r requirements.txt
+pip install -r config/requirements.txt
 
 # 3. Launch interactive prompt
-python keyword_automator.py
+python main.py
 ```
 
 ### Option C: Direct Command Line Flags
 ```bash
 # Target 100 keywords in the UK with exact KD lookup on top 10 winners
-python keyword_automator.py --seed "wireless headphones" --quota 100 --country "United Kingdom" --enrich-kd 10
+python main.py --seed "wireless headphones" --quota 100 --country "United Kingdom" --enrich-kd 10
 
 # Multi-seed search across multiple branches
-python keyword_automator.py --seed "smart watch, fitness band, running watch" --quota 150 --enrich-all
+python main.py --seed "smart watch, fitness band, running watch" --quota 150 --enrich-all
 ```
 
 ---
@@ -136,30 +134,31 @@ Every exported CSV and Google Sheet is structured with 12 standardized columns:
 ---
 
 ## 📂 Project Structure
-
 ```
 ahrefs-scrapper-free/
 │
 ├── config/
-│   └── sheet_config.example.json   # Template configuration for Google Sheets Webhook
+│   ├── requirements.txt                # Pinned Python package dependencies
+│   └── sheet_config.example.json       # Template configuration for Google Sheets Webhook
 │
 ├── docs/
-│   ├── ARCHITECTURE.md             # Technical deep-dive on stealth automation & scoring
-│   └── GOOGLE_SHEETS_SETUP.md      # Step-by-step Google Apps Script setup guide
+│   ├── ARCHITECTURE.md                 # Technical deep-dive on stealth automation & scoring
+│   └── GOOGLE_SHEETS_SETUP.md          # Step-by-step Google Apps Script setup guide
 │
 ├── google_sheets/
-│   └── code.gs                     # Google Apps Script engine for Drive auto-creation
+│   └── code.gs                         # Google Apps Script engine for Drive auto-creation
 │
 ├── samples/
 │   └── sample_keyword_intelligence.csv # Clean 12-column sample dataset
 │
-├── .gitignore                      # Security rules (excludes browser cookies & personal tokens)
-├── INSTALL_DEPENDENCIES.bat        # 1-click Windows dependency installer
-├── LAUNCH_SCRAPER.bat              # 1-click Windows master launcher
-├── LICENSE                         # MIT License
-├── README.md                       # Master documentation & visual guide
-├── requirements.txt                # Pinned Python package dependencies
-└── keyword_automator.py            # Main automation engine & CLI HUD
+├── scripts/
+│   └── INSTALL_DEPENDENCIES.bat        # 1-click package installer
+│
+├── .gitignore                          # Security rules (excludes browser cookies & personal tokens)
+├── LAUNCH_SCRAPER.bat                  # 1-click Windows master launcher
+├── LICENSE                             # MIT License
+├── README.md                           # Master documentation & visual guide
+└── main.py                             # Main automation engine & CLI HUD
 ```
 
 ---

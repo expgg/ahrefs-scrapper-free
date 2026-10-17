@@ -1,7 +1,7 @@
 @echo off
 title Installing Dependencies - Ahrefs Auto Scraper v3.5
 chcp 65001 >nul
-cd /d "%~dp0"
+cd /d "%~dp0\.."
 cls
 
 echo ===============================================================================
@@ -27,8 +27,12 @@ echo [*] Upgrading pip...
 python -m pip install --upgrade pip
 
 echo.
-echo [*] Installing required packages from requirements.txt...
-python -m pip install -r requirements.txt
+echo [*] Installing required packages from config\requirements.txt...
+if exist config\requirements.txt (
+    python -m pip install -r config\requirements.txt
+) else (
+    python -m pip install -r requirements.txt
+)
 
 echo.
 echo ===============================================================================
