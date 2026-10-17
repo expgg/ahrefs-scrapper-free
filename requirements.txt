@@ -1,0 +1,7 @@
+# Ahrefs Auto Scraper v3.5 Requirements
+# Engineered by Al Hossain Rifat
+
+seleniumbase>=4.47.0
+pandas>=2.2.0
+requests>=2.31.0
+rich>=13.7.0

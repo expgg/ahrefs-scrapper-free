@@ -1,0 +1,40 @@
+# =============================================================================
+# Git Ignore - Ahrefs Auto Scraper
+# =============================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Browser profile and session cookies (NEVER commit personal Cloudflare session tokens)
+chrome_profile/
+downloaded_files/
+cf_session_token.json
+
+# Local user configuration (Webhook URL)
+sheet_config.json
+!config/sheet_config.example.json
+
+# Harvested CSV files (Keep only sample exports in samples/)
+*.csv
+!samples/*.csv
+
+# Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+
+# IDE / OS specific files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs and scratch
+*.log
+scratch/
